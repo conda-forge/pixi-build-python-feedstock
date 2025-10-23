@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
 context:
   name: pixi-build-python
-  version: "0.4.0"
+  version: "0.4.1"
 
 package:
   name: ${{ name }}
@@ -9,10 +9,10 @@ package:
 
 source:
   url: https://github.com/prefix-dev/pixi-build-backends/archive/refs/tags/${{ name }}-v${{ version }}.tar.gz
-  sha256: 9f113976986fecf62f9f6d122faa01d854e78519ce8cd09e6b13ed977c628c35
+  sha256: 2b8b0d6137044d798bc6f1596af8cadc8caf97e567feba72f74150da6c07ee12
 
 build:
-  number: 1
+  number: 0
   script:
     env:
       CARGO_PROFILE_RELEASE_STRIP: symbols
@@ -31,7 +31,7 @@ build:
         then:
           - set CARGO_HOME=C:\.cargo
           - md %CARGO_HOME%
-      - cargo auditable install --locked --no-track --bins --root ${{ PREFIX }} --path crates/${{ name }}
+      - cargo auditable install --locked --no-track --bins --root ${{ PREFIX }} --path crates/${{ name }} --no-default-features --features native-tls
       - cargo-bundle-licenses --format yaml --output ./THIRDPARTY.yml
   files:
     - bin/${{ name }}
