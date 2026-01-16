@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
 context:
   name: pixi-build-python
-  version: "0.4.4"
+  version: "0.4.5"
 
 package:
   name: ${{ name }}
@@ -9,7 +9,7 @@ package:
 
 source:
   url: https://github.com/prefix-dev/pixi-build-backends/archive/refs/tags/${{ name }}-v${{ version }}.tar.gz
-  sha256: 570027e3c5a9fa5813803bb7016395c7c25faf00dfeed340ac30c0d59bc9f749
+  sha256: 826f42dc3cbc4e8b74990fb0d0d6f509306a40a9a08969443d02b2d83b870ffb
 
 build:
   number: 0
