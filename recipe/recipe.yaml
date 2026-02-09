@@ -1,15 +1,16 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
 context:
   name: pixi-build-python
-  version: "0.4.5"
+  crate_name: pixi_build_python
+  version: "0.4.6"
 
 package:
   name: ${{ name }}
   version: ${{ version }}
 
 source:
-  url: https://github.com/prefix-dev/pixi-build-backends/archive/refs/tags/${{ name }}-v${{ version }}.tar.gz
-  sha256: 826f42dc3cbc4e8b74990fb0d0d6f509306a40a9a08969443d02b2d83b870ffb
+  url: https://github.com/prefix-dev/pixi/archive/refs/tags/${{ name }}-v${{ version }}.tar.gz
+  sha256: 2e5022b7680a81271feb7b1e8a3751c92fbcca7c75fb5cf01a9e894481ce7246
 
 build:
   number: 0
@@ -31,7 +32,7 @@ build:
         then:
           - set CARGO_HOME=C:\.cargo
           - md %CARGO_HOME%
-      - cargo auditable install --locked --no-track --bins --root ${{ PREFIX }} --path crates/${{ name }} --no-default-features --features native-tls
+      - cargo auditable install --locked --no-track --bins --root ${{ PREFIX }} --path crates/${{ crate_name }} --no-default-features --features native-tls
       - cargo-bundle-licenses --format yaml --output ./THIRDPARTY.yml
   files:
     - bin/${{ name }}
@@ -57,7 +58,7 @@ tests:
         - ${{ name }}
 
 about:
-  homepage: https://github.com/prefix-dev/pixi-build-backends
+  homepage: https://github.com/prefix-dev/pixi
   summary: A pixi build backend to build Python packages.
   description: |
     This package provides a build backend for pixi that allows building Python packages.
@@ -66,7 +67,7 @@ about:
     - LICENSE
     - THIRDPARTY.yml
   documentation: https://prefix-dev.github.io/pixi-build-backends
-  repository: https://github.com/prefix-dev/pixi-build-backends
+  repository: https://github.com/prefix-dev/pixi
 
 extra:
   recipe-maintainers:
