@@ -2,7 +2,7 @@
 context:
   name: pixi-build-python
   crate_name: pixi_build_python
-  version: "0.4.9"
+  version: "0.5.0"
 
 package:
   name: ${{ name }}
@@ -11,7 +11,7 @@ package:
 source:
   url: https://github.com/prefix-dev/pixi/archive/refs/tags/${{ name }}-v${{ 
     version }}.tar.gz
-  sha256: 5829f122334326272e033488f1663c2e6df0700add38150561030688a5437430
+  sha256: de4a5a83abe775802d3f21582827b96a9f46c700f056da5268604c5f346b1620
 
 build:
   number: 0
