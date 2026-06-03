@@ -2,7 +2,7 @@
 context:
   name: pixi-build-python
   crate_name: pixi_build_python
-  version: "0.5.1"
+  version: "0.5.2"
 
 package:
   name: ${{ name }}
@@ -11,12 +11,15 @@ package:
 source:
   url: https://github.com/prefix-dev/pixi/archive/refs/tags/${{ name }}-v${{ 
     version }}.tar.gz
-  sha256: c0932f3b573e6c2d22ef25722b61f2fa2404a0118f63c7cfb97a09446403f2a5
+  sha256: 77a0ee1e8902139be1f34bc645cc61876acb5c2c316e7ce9c1cc5c659f74289b
 
 build:
   number: 0
   script:
     env:
+      # Use cmake to build aws-lc-sys, because conda's CFLAGS inject -O2 which
+      # overrides the -O0 required by jitterentropy-base.c, causing a build failure.
+      AWS_LC_SYS_CMAKE_BUILDER: "1"
       CARGO_PROFILE_RELEASE_STRIP: symbols
       CARGO_PROFILE_RELEASE_LTO: fat
     content:
@@ -29,6 +32,11 @@ build:
     - if: unix
       then:
       - export OPENSSL_DIR="$PREFIX"
+    - if: linux
+      then:
+        # aws-lc-sys' cmake builder defaults to the "Unix Makefiles" generator, but the
+        # Linux build environment has no make; use the ninja generator instead.
+      - export CMAKE_GENERATOR=Ninja
     - if: win
       then:
       - set CARGO_HOME=C:\.cargo
@@ -45,6 +53,9 @@ requirements:
   build:
   - ${{ compiler("rust") }}
   - ${{ stdlib("c") }}
+  # for building aws-lc-sys
+  - cmake
+  - ninja
   - cargo-bundle-licenses
   - cargo-auditable
   host:
