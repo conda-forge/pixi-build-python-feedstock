@@ -2,7 +2,7 @@
 context:
   name: pixi-build-python
   crate_name: pixi_build_python
-  version: "0.8.5"
+  version: "0.8.6"
 
 package:
   name: ${{ name }}
@@ -11,7 +11,7 @@ package:
 source:
   url: https://github.com/prefix-dev/pixi/archive/refs/tags/${{ name }}-v${{ 
     version }}.tar.gz
-  sha256: 679da65d872e4ad2b361e4175f0c96294ab87b1cdfbad7765f3d15b1be58c905
+  sha256: 83e8810dfa0f310cf486cd2d4c13df7a38d4299678b09a8fb05486d367417057
 
 build:
   number: 0
@@ -64,7 +64,7 @@ requirements:
   - if: unix
     then: openssl
   run:
-  - pixi-build-api-version >=6,<7
+  - pixi-build-api-version >=7,<8
 
 tests:
 - script:
